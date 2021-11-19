@@ -1,8 +1,10 @@
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import s from './Form.module.css';
 import shortid from 'shortid';
-import { addContact } from '../../redux/Contacts/contact-actions';
+import { addContact } from '../../redux/Contacts/contacts-operations';
+import { getContacts } from '../../redux/Contacts/contacts-selectors';
+
 // import PropTypes from 'prop-types';
 // import { connect } from 'react-redux';
 
@@ -14,9 +16,9 @@ function Form() {
 
   const nameId = shortid.generate();
   const telId = shortid.generate();
-
+  const contacts = useSelector(getContacts);
   const dispatch = useDispatch();
-
+  
   const handleChange = e => {
     const { name, value } = e.currentTarget;
     switch (name) {
@@ -34,13 +36,15 @@ function Form() {
   const handleSubmit = e => {
     e.preventDefault();
     const addNewContact = {
-      id: shortid.generate(),
       name,
       number,
     };
-    // onSubmit(addNewContact);
-    dispatch(addContact(addNewContact));
-    reset();
+    if (contacts.find(contact => contact.name === name)) {
+      alert('this contact already exists');
+      reset();
+    } else {
+      dispatch(addContact(addNewContact));
+    }
   };
 
   const reset = () => {
@@ -87,19 +91,6 @@ function Form() {
     );
   }
 
-
-// Form.propTypes = {
-//   name: PropTypes.string,
-//   number: PropTypes.number,
-//   onSubmit: PropTypes.func.isRequired,
-// };
-
-// const mapDispatchToProps = dispatch => {
-//   return {
-//     onSubmit: data =>dispatch(addContact(data)),
-//   }
-// };
-// export default connect(null, mapDispatchToProps)(Form);
 
 
 export default Form;

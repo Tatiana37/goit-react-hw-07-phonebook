@@ -5,15 +5,15 @@ import App from './components/App/App';
 //  импорт компонента Provider
 import { Provider } from 'react-redux';
 //  импорт объекта глобального состояния
-import { store, persistor } from './redux/store';
-import { PersistGate } from 'redux-persist/integration/react'
+import { store } from './redux/store';
+// import { PersistGate } from 'redux-persist/integration/react'
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
+      {/* <PersistGate loading={null} > */}
         <App />
-      </PersistGate>
+      {/* </PersistGate> */}
     </Provider>
   </React.StrictMode>,
   document.getElementById('root'),

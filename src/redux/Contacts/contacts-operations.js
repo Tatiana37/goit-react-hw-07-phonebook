@@ -1,0 +1,82 @@
+import axios from 'axios';
+import { createAsyncThunk } from '@reduxjs/toolkit';
+
+axios.defaults.baseURL = 'https://6195417d74c1bd00176c6c9b.mockapi.io/api/v1/';
+
+export const fetchContacts = createAsyncThunk(
+    'contacts/fetchContacts',
+    async (_, { rejectWithValue }) => {
+        try {
+            const contacts = await axios.get('/contacts');
+            return contacts;
+        } catch (error) {
+            return rejectWithValue(error);
+        }
+    }
+);
+
+export const addContact = createAsyncThunk(
+    'contacts/addContact',
+    async (contact, { rejectWithValue }) => {
+        try {
+            const item = { name: contact.name, number: contact.number };
+            const { data } = await axios.post('/contacts', item);
+            return data;
+        } catch (error) {
+            return rejectWithValue(error);
+        }
+    }
+);
+
+export const deleteContact = createAsyncThunk(
+    'contacts/deleteContact',
+    async (contactId, { rejectWithValue }) => {
+        try {
+            const {data: {id}} =
+            await axios.delete(`/contacts/ ${contactId}`);
+            return id;
+        } catch (error) {
+            return rejectWithValue(error);
+        }
+    }
+);
+
+
+
+
+// const fetchContacts = () => async (dispatch) => {
+//   dispatch(fetchContactRequest());
+
+//   try {
+//     const { data } = await axios.get("/contacts");
+//     dispatch(fetchContactSuccess(data));
+//   } catch (error) {
+//     dispatch(fetchContactError(error));
+//   }
+// };
+
+
+// const addContact = (contact) => async (dispatch) => {
+//   const item = { name: contact.name, number: contact.number };
+
+//   dispatch(addContactRequest());
+
+//   try {
+//     const { data } = await axios.post("/contacts", item);
+//     dispatch(addContactSuccess(data));
+//   } catch (error) {
+//     dispatch(addContactError(error));
+//   }
+// };
+
+
+// const deleteContact = (contactId) => async (dispatch) => {
+//   dispatch(deleteContactRequest());
+
+//   try {
+//     await axios.delete(`/contacts/${contactId}`);
+//     dispatch(deleteContactSuccess(contactId));
+//   } catch (error) {
+//     dispatch(deleteContactError(error));
+//   }
+// };
