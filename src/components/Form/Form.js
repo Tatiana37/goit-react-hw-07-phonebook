@@ -5,9 +5,6 @@ import shortid from 'shortid';
 import { addContact } from '../../redux/Contacts/contacts-operations';
 import { getContacts } from '../../redux/Contacts/contacts-selectors';
 
-// import PropTypes from 'prop-types';
-// import { connect } from 'react-redux';
-
 
 function Form() {
   
@@ -44,6 +41,7 @@ function Form() {
       reset();
     } else {
       dispatch(addContact(addNewContact));
+      reset();
     }
   };
 
