@@ -44,39 +44,3 @@ export const deleteContact = createAsyncThunk(
 
 
 
-// const fetchContacts = () => async (dispatch) => {
-//   dispatch(fetchContactRequest());
-
-//   try {
-//     const { data } = await axios.get("/contacts");
-//     dispatch(fetchContactSuccess(data));
-//   } catch (error) {
-//     dispatch(fetchContactError(error));
-//   }
-// };
-
-
-// const addContact = (contact) => async (dispatch) => {
-//   const item = { name: contact.name, number: contact.number };
-
-//   dispatch(addContactRequest());
-
-//   try {
-//     const { data } = await axios.post("/contacts", item);
-//     dispatch(addContactSuccess(data));
-//   } catch (error) {
-//     dispatch(addContactError(error));
-//   }
-// };
-
-
-// const deleteContact = (contactId) => async (dispatch) => {
-//   dispatch(deleteContactRequest());
-
-//   try {
-//     await axios.delete(`/contacts/${contactId}`);
-//     dispatch(deleteContactSuccess(contactId));
-//   } catch (error) {
-//     dispatch(deleteContactError(error));
-//   }
-// };
